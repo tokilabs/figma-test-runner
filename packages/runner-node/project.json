@@ -1,0 +1,48 @@
+{
+  "name": "runner-node",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/runner-node/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/runner-node",
+        "tsConfig": "packages/runner-node/tsconfig.lib.json",
+        "packageJson": "packages/runner-node/package.json",
+        "main": "packages/runner-node/src/index.ts",
+        "assets": ["packages/runner-node/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs runner-node {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/runner-node/**/*.ts",
+          "packages/runner-node/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/runner-node/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
