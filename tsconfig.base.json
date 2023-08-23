@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cva/run-figma-run": ["packages/runner/src/index.ts"]
+      "@cva/run-figma-run": ["packages/runner/src/index.ts"],
+      "@cva/runner-node": ["packages/runner-node/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
